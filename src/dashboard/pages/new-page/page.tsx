@@ -7,7 +7,6 @@ import { getPackagingFee, setPackagingFee } from "../../../backend/returnValue.w
 const DashboardPage: FC = () => {
   const [feeValue, setFeeValue] = useState<any>(null);
   const inputRef = useRef<any>(null);
-  let packagingFeeAmount = null;
 
   useEffect(() => {
     async function func() {
@@ -24,23 +23,17 @@ const DashboardPage: FC = () => {
       const response = await getPackagingFee();
       console.log('getPackagingFee returned: ' + response);
 
-      packagingFeeAmount = response;
-      console.log('numerical value: ' + packagingFeeAmount);
-
-      setFeeValue(packagingFeeAmount);
-      return;
-
-      if (packagingFeeAmount === null || packagingFeeAmount === undefined) {
+      if (response === null || response === undefined) {
         dashboard.showToast({
           message: 'getPackagingFee failed.',
           type: 'error',
         });
         return;
       }
-      //setFeeValue(packagingFeeAmount);
+      setFeeValue(response);
 
       dashboard.showToast({
-        message: `Successfully fetched amount: ${feeValue}`,
+        message: `Successfully fetched fee amount: ${feeValue}`,
         type: 'success',
       });
     } catch (e) {
@@ -98,9 +91,6 @@ const DashboardPage: FC = () => {
             <input type='text' ref={inputRef} />
             <Button onClick={handleChangeFee}>Apply</Button>
           </EmptyState>
-          {
-            <p>trying secrets</p>
-          }
         </Page.Content>
       </Page>
     </WixDesignSystemProvider>
