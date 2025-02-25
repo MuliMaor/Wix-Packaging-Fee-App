@@ -45,10 +45,9 @@ const DashboardPage: FC = () => {
   }
 
   async function handleChangeFee() {
-    const value = inputRef.current.value;
-    const floatValue = parseFloat(value);
+    const value = parseFloat(inputRef.current.value);
 
-    if (isNaN(floatValue) || floatValue < 0) {
+    if (isNaN(value) || value < 0) {
       dashboard.showToast({
         message: 'Fee value must be a positive number',
         type: 'error',

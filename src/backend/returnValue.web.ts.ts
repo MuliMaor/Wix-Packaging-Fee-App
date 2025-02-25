@@ -17,7 +17,7 @@ export const setPackagingFee = webMethod(
     const secretId = (await secrets.listSecretInfo()).secrets?.find(secret => secret.name === secretName)?._id;
     console.log('got secert id');
     if (secretId !== null && secretId !== undefined) {
-      await secrets.updateSecret(secretId, { value: amount });
+      await secrets.updateSecret(secretId, { value: amount.toString() });
     }
     console.log('updated fee amount');
   });
