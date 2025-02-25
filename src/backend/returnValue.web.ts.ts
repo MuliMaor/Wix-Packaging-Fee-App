@@ -1,6 +1,4 @@
 import { webMethod, Permissions } from '@wix/web-methods';
-import { collections, items } from "@wix/data";
-import { auth } from "@wix/essentials";
 import { secrets } from "@wix/secrets";
 
 export const getPackagingFee = webMethod(

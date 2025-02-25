@@ -33,7 +33,7 @@ const DashboardPage: FC = () => {
       setFeeValue(response);
 
       dashboard.showToast({
-        message: `Successfully fetched fee amount: ${feeValue}`,
+        message: `Successfully fetched fee amount.`,
         type: 'success',
       });
     } catch (e) {
