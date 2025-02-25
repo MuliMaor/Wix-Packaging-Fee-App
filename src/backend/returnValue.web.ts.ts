@@ -9,9 +9,15 @@ export const getPackagingFee = webMethod(
     return parseFloat(secret.value);
   });
 
-  export const setPackagingFee = webMethod(
-    Permissions.Admin,
-    async (amount) => {
-      const secretName = 'packagingFee';
-      await secrets.updateSecret(secretName, {value: amount} );
-    });
+export const setPackagingFee = webMethod(
+  Permissions.Admin,
+  async (amount) => {
+    const secretName = 'packagingFee';
+    console.log('called setPackagingFee with amount = ' + amount);
+    const secretId = (await secrets.listSecretInfo()).secrets?.find(secret => secret.name === secretName)?._id;
+    console.log('got secert id');
+    if (secretId !== null && secretId !== undefined) {
+      await secrets.updateSecret(secretId, { value: amount });
+    }
+    console.log('updated fee amount');
+  });

@@ -32,14 +32,10 @@ const DashboardPage: FC = () => {
       }
       setFeeValue(response);
 
-      dashboard.showToast({
-        message: `Successfully fetched fee amount.`,
-        type: 'success',
-      });
     } catch (e) {
       console.log(e);
       dashboard.showToast({
-        message: 'Failed to fetch fee amount. Please refresh the page.',
+        message: 'Failed to fetch fee amount. Please make sure the packegingFee secret exists, and refresh the page.',
         type: 'error',
       });
     }
@@ -49,16 +45,17 @@ const DashboardPage: FC = () => {
   }
 
   async function handleChangeFee() {
-    const value = parseFloat(inputRef.current.value);
+    const value = inputRef.current.value;
+    const floatValue = parseFloat(value);
 
-    if (isNaN(value) || value < 0) {
+    if (isNaN(floatValue) || floatValue < 0) {
       dashboard.showToast({
         message: 'Fee value must be a positive number',
         type: 'error',
       });
     } else {
       try {
-        const response = await setPackagingFee(value);
+        await setPackagingFee(value);
         setFeeValue(value);
         dashboard.showToast({
           message: 'Packaging fee updated successfully.',
